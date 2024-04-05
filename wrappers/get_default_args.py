@@ -29,7 +29,8 @@ def get_default_args():
                             'n_comp_window': 'full',
                             'minimize_over_permutations': True,
                             'cross_param_ordering': None,
-                            'n_comp_jobs': 1}
+                            'n_comp_jobs': 1,
+                            'use_sparse_matrix': False}
 
     all_args = {}
 
