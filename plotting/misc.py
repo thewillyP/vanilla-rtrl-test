@@ -281,7 +281,8 @@ def plot_3d_tSNE_from_distance_matrix(distances, point_classes,
 
 
 def plot_signals(signals, key_restriction=None, title=None, x_values=None,
-                 signal_clips={}, signal_ranges={}, colors=None, legend=True,
+                 signal_clips={}, signal_ranges={}, filter_sizes=None,
+                 colors=None, legend=True, log_scale=None,
                  stage_assignments=None, stage_assignment_colors=None):
     """For a dictionary of 1D time series signals, plots each vertically
     in a min-max range from 0 to 1.
@@ -296,6 +297,12 @@ def plot_signals(signals, key_restriction=None, title=None, x_values=None,
     if colors is None:
         colors = ['C{}'.format(i) for i in range(len(keys))]
 
+    if filter_sizes is None:
+        filter_sizes = [None] * len(keys)
+
+    if log_scale is None:
+        log_scale = [False] * len(keys)
+
     fig = plt.figure(figsize=(10, 2 * len(keys)))
     leg = []
     for i_key, key in enumerate(keys):
@@ -304,6 +311,9 @@ def plot_signals(signals, key_restriction=None, title=None, x_values=None,
 
         if key in signal_clips.keys():
             y = np.clip(y, 0, signal_clips[key])
+
+        if filter_sizes[i_key] is not None:
+            y = uniform_filter1d(y, size=filter_sizes[i_key])
 
         y_max = np.amax(y)
         y_min = np.amin(y)
@@ -316,6 +326,10 @@ def plot_signals(signals, key_restriction=None, title=None, x_values=None,
             y = (y - y_min) / (y_max - y_min)
         else:
             y = y - y_min
+
+        if log_scale[i_key]:
+            y = np.log10(y + 0.000001)
+            y = y / (-np.amin(y)) + 1
 
         if x_values is not None:
             x = x_values[:len(y)]

@@ -86,6 +86,7 @@ def unpack_cross_compare_result(saved_run_root_name, checkpoint_stats={},
                                 relative_weight_change=True,
                                 multi_job_comp=False,
                                 project_name='learning-dynamics',
+                                use_sparse_matrix=True,
                                 results_subdir='misc',
                                 username='om2382'):
     """Unpack the results of a full analysis -> compare run. Returns
@@ -109,6 +110,7 @@ def unpack_cross_compare_result(saved_run_root_name, checkpoint_stats={},
         result = unpack_sparse_cross_compare_results(saved_run_root_name,
                                                      project_name=project_name,
                                                      results_subdir=results_subdir,
+                                                     use_sparse_matrix=use_sparse_matrix,
                                                      username=username)
     else:
         with open(os.path.join(compare_result_path, 'result_0'), 'rb') as f:

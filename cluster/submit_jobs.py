@@ -206,7 +206,7 @@ def unpack_processed_data(job_file_path,
         array_dims = [len(configs_array[key]) for key in key_order]
         processed_data_example = result['processed_data']
         if type(processed_data_example) != np.float64:
-            array_dims += [len(processed_data_example)]
+            array_dims += list(processed_data_example.shape)
         results_array = np.zeros(array_dims)
     except KeyError:
         results_array = np.array([])
