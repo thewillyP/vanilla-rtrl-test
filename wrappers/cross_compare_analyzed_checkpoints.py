@@ -27,6 +27,7 @@ def cross_compare_analyzed_checkpoints(saved_run_root_name,
     rec_weight = compare_args['rec_weight']
     output_weight = compare_args['output_weight']
     weight_change_alignment = compare_args['weight_change_alignment']
+    use_sparse_matrix = compare_args['use_sparse_matrix']
 
     ### --- Get paths, extract and unpack data --- ###
 
@@ -284,7 +285,7 @@ def cross_compare_analyzed_checkpoints(saved_run_root_name,
 
     result['calculation_check'] = calculation_check
 
-    if compare_args['n_comp_jobs'] > 1:
+    if compare_args['n_comp_jobs'] > 1 and use_sparse_matrix:
         for key in result.keys():
             result[key] = sparse.csr_matrix(result[key])
 

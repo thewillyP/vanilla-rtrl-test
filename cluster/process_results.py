@@ -86,6 +86,7 @@ def unpack_cross_compare_result(saved_run_root_name, checkpoint_stats={},
                                 relative_weight_change=True,
                                 multi_job_comp=False,
                                 project_name='learning-dynamics',
+                                use_sparse_matrix=True,
                                 results_subdir='misc',
                                 username='om2382'):
     """Unpack the results of a full analysis -> compare run. Returns
@@ -109,6 +110,7 @@ def unpack_cross_compare_result(saved_run_root_name, checkpoint_stats={},
         result = unpack_sparse_cross_compare_results(saved_run_root_name,
                                                      project_name=project_name,
                                                      results_subdir=results_subdir,
+                                                     use_sparse_matrix=use_sparse_matrix,
                                                      username=username)
     else:
         with open(os.path.join(compare_result_path, 'result_0'), 'rb') as f:
@@ -168,6 +170,7 @@ def unpack_sparse_cross_compare_results(saved_run_root_name,
                                         project_name='learning-dynamics',
                                         results_subdir='misc',
                                         n_compare_window=1,
+                                        use_sparse_matrix=False,
                                         username='om2382'):
     """Unpacks the results of a cross comparison where discrete chunks are
     computed separately."""
@@ -214,7 +217,10 @@ def unpack_sparse_cross_compare_results(saved_run_root_name,
         else:
             for key in result.keys():
                 if 'distances' in key or 'check' in key:
-                    result[key] = np.array(result[key].todense())
+                    if use_sparse_matrix:
+                        result[key] = np.array(result[key].todense())
+                    else:
+                        result[key] = np.array(result[key])
 
         with open(combined_result_path, 'wb') as f:
             pickle.dump(result, f)

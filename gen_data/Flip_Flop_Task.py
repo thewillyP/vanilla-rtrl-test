@@ -40,7 +40,8 @@ class Flip_Flop_Task(Task):
         self.y_dim_mask = np.array(y_dim_mask)
         self.probe_inputs = ([np.eye(n_bit)[i] for i in range(n_bit)] +
                              [-np.eye(n_bit)[i] for i in range(n_bit)])
-        self.probe_dataset = self.gen_probe_dataset()
+        if n_bit == 3:
+            self.probe_dataset = self.gen_probe_dataset()
 
     def gen_probe_dataset(self):
 

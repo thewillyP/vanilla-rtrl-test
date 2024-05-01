@@ -65,6 +65,7 @@ def analyze_training_run(saved_run_name, FP_args, test_args, graph_args,
         except KeyError:
             continue
 
+        np.random.seed(0)
         if FP_args['find_FPs']:
             analysis_args = {k: FP_args[k] for k in FP_args if k != 'find_FPs'}
             analyze_checkpoint(checkpoint, data, verbose=False,
