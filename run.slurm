@@ -6,7 +6,7 @@
 #SBATCH --job-name=run
 #SBATCH --error=run.err
 #SBATCH --output=run.log
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:0
 #SBATCH --cpus-per-task=8
 #SBATCH --mail-type=BEGIN
 #SBATCH --mail-user=wlp9800@nyu.edu
