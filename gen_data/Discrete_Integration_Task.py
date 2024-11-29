@@ -76,7 +76,7 @@ class Discrete_Integration_Task(Task):
 
             t_reset_prev = t_reset
 
-        return X, Y, None
+        return X, Y, None, None, None
 
     def gen_dataset_2(self, N):
 

@@ -90,4 +90,4 @@ class Sensorimotor_Mapping(Task):
             Y = np.concatenate(Y, axis=0)
             trial_type = np.array(trial_type)
 
-        return X, Y, trial_type
+        return X, Y, trial_type, None, None
