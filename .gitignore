@@ -12,3 +12,5 @@ fp_tasks
 .ipynb_checkpoints
 *.pyc
 files/
+*.err
+*.log
